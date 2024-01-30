@@ -76,5 +76,10 @@
             @yield('content')
         </main>
     </div>
+    @if (session('status'))
+        <script type="module">
+            showToast("{{ session('status') }}")
+        </script>
+    @endif
 </body>
 </html>

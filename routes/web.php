@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\EducationController;
+use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\UserDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +26,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('user-details', UserDetailController::class);
+    Route::resource('educations', EducationController::class);
+    Route::resource('experience', ExperienceController::class);
+    Route::resource('skills', SkillController::class);
+    Route::resource('languages', LanguageController::class);
+    Route::get('/resume',[ResumeController::class,'index'])->name('resume.index');
+    Route::get('/resume/pdf',[ResumeController::class,'viewPdf'])->name('resume.pdf');
+    Route::get('/resume/download',[ResumeController::class,'download'])->name('resume.download');
+});
+// Route::resource('resume', ResumeController::class);
